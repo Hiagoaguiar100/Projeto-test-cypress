@@ -16,25 +16,29 @@ describe('Orange HRM Tests', () => {
     //passwordField: "[name='password']",
     //loginButton: "[type='submit']",
     //sectionTitleTopBar: ".oxd-layout .oxd-topbar-header-breadcrumb-module",
-    dashboardGrid: ".orangehrm-dashboard-grid",
+    //dashboardGrid: ".orangehrm-dashboard-grid",
     //wrongCredential: ".oxd-alert",
-    myInfoButton: "[href='/web/index.php/pim/viewMyDetails']",
-    firstNameField: "[name='firstName']",
-    middleNameField: "[name='middleName']",
-    lastNameField: "[name='lastName']",
-    GenericField: ".oxd-input",
-    placeholderField: "[data-v-1f99f73c=''][placeholder='yyyy-dd-mm']",
-    wrapperField: ".oxd-select-wrapper",
-    submitButton: "[type='submit']"
+    //myInfoButton: "[href='/web/index.php/pim/viewMyDetails']",
+    //firstNameField: "[name='firstName']",
+    //middleNameField: "[name='middleName']",
+    //lastNameField: "[name='lastName']",
+    //GenericField: ".oxd-input",
+    //placeholderField: "[data-v-1f99f73c=''][placeholder='yyyy-dd-mm']",
+    //wrapperField: ".oxd-select-wrapper",
+    //submitButton: "[type='submit']"
   }
 
   it.only('Login - Success', () => {
     loginPage.accessLoginPage()
     loginPage.loginWithUser(userData.userDataSuccess.username, userData.userDataSuccess.password)
+    
     dashboardPage.checkDashboardPage()
-    myinfoPage.accessMyinfoPage()
-    myinfoPage.infoPerson("Hiago", "Aguiar", "da Silva", "123456test", "t12", "72613861teste", "2010-12-12", "123456789", "987654321", "Angolan", "1995-12-12")
 
+    myinfoPage.accessMyinfoPage()
+    myinfoPage.fillPersonalDetails("Hiago", "Aguiar", "da Silva")
+    myinfoPage.fillEmployeeDetails("123456test", "t12", "72613861teste", "2010-12-12", "123456789", "987654321" , "1990-01-01")
+    myinfoPage.saveForm()
+    
   })
   it('Login - Fail', () => {
     cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')

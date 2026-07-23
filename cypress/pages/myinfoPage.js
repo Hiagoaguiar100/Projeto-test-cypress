@@ -17,13 +17,15 @@ class MyinfoPage {
     accessMyinfoPage() {
         cy.get(this.selectorsList().myInfoButton).click()
     }
-    infoPerson(firstName, middleName, lastName, employeeId, otherId, driverLicenseNumber, licenseExpiryDate, ssnNumber, sinNumber, nationality, dateOfBirth) {
+    fillPersonalDetails(firstName, middleName, lastName) {
         cy.get(this.selectorsList().firstNameField).clear().type(firstName)//coloquei .clear() para limpar o campo antes de digitar o nome
         cy.get(this.selectorsList().middleNameField).clear().type(middleName)
         cy.get(this.selectorsList().lastNameField).clear().type(lastName)
+    }
+    fillEmployeeDetails(employeeId, otherId, driverLicenseDate, licenseExpiryDate, ssnNumber, sinNumber, dateOfBirth) {
         cy.get(this.selectorsList().GenericField).eq(4).clear().type(employeeId)
         cy.get(this.selectorsList().GenericField).eq(5).clear().type(otherId)
-        cy.get(this.selectorsList().GenericField).eq(6).clear().type(driverLicenseNumber)
+        cy.get(this.selectorsList().GenericField).eq(6).clear().type(driverLicenseDate)
         cy.get(this.selectorsList().placeholderField).eq(0).clear().click().type(licenseExpiryDate)
         cy.get(this.selectorsList().GenericField).eq(8).clear().type(ssnNumber)
         cy.get(this.selectorsList().GenericField).eq(9).clear().type(sinNumber)
@@ -31,8 +33,12 @@ class MyinfoPage {
         cy.get('.oxd-select-dropdown').should('be.visible')
         cy.contains('.oxd-select-option', 'Angolan').click()
         cy.get(this.selectorsList().placeholderField).eq(1).clear().click().type(dateOfBirth)
-        cy.get(this.selectorsList().submitButton).eq(0).click()
+        
+    }
+    saveForm() {
+        cy.get(this.selectorsList().submitButton).eq(0).click({force: true})
         cy.get('body').should('contain', "Success")
+
     }
 
 }
